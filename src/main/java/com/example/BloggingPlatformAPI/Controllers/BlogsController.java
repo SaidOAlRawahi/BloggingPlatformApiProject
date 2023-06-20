@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("api/blogs")
@@ -33,7 +31,24 @@ public class BlogsController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/comments")
+    @GetMapping
+    public ResponseEntity<Map<String,Set<Blog>>> getBlogs(
+            @RequestParam(required = false) Integer id,
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String tag,
+            @RequestParam(required = false) Integer authorId
+    ) {
+        List<Blog> retrievedBlogs =  blogsService.getBlogs(id, title, tag, authorId);
+        Set<Blog> blogs = new HashSet<>();
+        blogs.addAll(retrievedBlogs);
+
+        Map<String, Set<Blog>> response = new HashMap<>();
+        response.put("blogs", blogs);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/comments/all")
     public ResponseEntity<Map<String, List<Comment>>> getAllComments() {
         List<Comment> comments = commentsService.getAll();
 

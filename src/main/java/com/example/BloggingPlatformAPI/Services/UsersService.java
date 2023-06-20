@@ -16,7 +16,7 @@ public class UsersService {
     public User add(User user){
         User newUser = new User();
         newUser.setEmail(user.getEmail());
-        newUser.setUserName(user.getUserName());
+        newUser.setUsername(user.getUsername());
         newUser.setPassword(user.getPassword());
         newUser.setIsActive(true);
         newUser.setCreatedDate(new Date());

@@ -15,10 +15,6 @@ public class UsersController {
     @Autowired
     UsersService usersService;
 
-    @GetMapping("/all")
-    public List<User> getAll(){
-        return usersService.getAll();
-    }
 
     @PostMapping
     public ResponseEntity<String> add(@RequestBody User user){

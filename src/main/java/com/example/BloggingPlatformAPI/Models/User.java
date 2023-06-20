@@ -1,6 +1,7 @@
 package com.example.BloggingPlatformAPI.Models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -13,11 +14,13 @@ public class User extends BaseModel{
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     Integer id;
-    String userName;
+    String username;
     String email;
     String password;
-    @OneToMany(mappedBy = "blogOwner", cascade = CascadeType.ALL)
+    @JsonIgnore
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Blog> blogs;
+    @JsonIgnore
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Comment> comments;
 }

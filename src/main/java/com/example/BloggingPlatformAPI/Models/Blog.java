@@ -1,5 +1,6 @@
 package com.example.BloggingPlatformAPI.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,9 +17,11 @@ public class Blog extends BaseModel {
     String content;
     @ElementCollection
     Set<String> tags;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
-    User blogOwner;
+    User author;
+    @JsonIgnore
     @OneToMany(mappedBy = "parentBlog", cascade = CascadeType.ALL)
     private List<Comment> comments;
 }
