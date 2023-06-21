@@ -20,7 +20,4 @@ public class User extends BaseModel{
     @JsonIgnore
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Blog> blogs;
-    @JsonIgnore
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
-    private List<Comment> comments;
 }

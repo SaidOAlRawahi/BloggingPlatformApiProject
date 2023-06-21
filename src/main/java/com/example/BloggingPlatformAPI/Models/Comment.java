@@ -11,9 +11,7 @@ public class Comment extends BaseModel{
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     Integer id;
     String content;
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    User author;
+    String author;
     @ManyToOne
     @JoinColumn(name = "blog_id")
     Blog parentBlog;

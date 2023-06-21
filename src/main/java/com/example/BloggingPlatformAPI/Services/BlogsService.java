@@ -1,11 +1,13 @@
 package com.example.BloggingPlatformAPI.Services;
 
 import com.example.BloggingPlatformAPI.Models.Blog;
+import com.example.BloggingPlatformAPI.Models.User;
 import com.example.BloggingPlatformAPI.Reposittories.BlogsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -13,8 +15,28 @@ public class BlogsService {
     @Autowired
     BlogsRepository blogsRepository;
     public Blog add(Blog blog) {
-        return blogsRepository.save(blog);
+        Blog newBlog = new Blog();
+        newBlog.setTags(blog.getTags());
+        newBlog.setContent(blog.getContent());
+        newBlog.setTitle(blog.getTitle());
+        newBlog.setIsActive(true);
+        newBlog.setCreatedDate(new Date());
+        newBlog.setLastUpdated(newBlog.getCreatedDate());
+        return blogsRepository.save(newBlog);
     }
+    public Blog edit(Blog blog, Integer id) {
+        Blog editedBlog = blogsRepository.findById(id).get();
+        editedBlog.setTags(blog.getTags());
+        editedBlog.setContent(blog.getContent());
+        editedBlog.setTitle(blog.getTitle());
+        editedBlog.setLastUpdated(new Date());
+        return blogsRepository.save(editedBlog);
+    }
+
+    public void delete(Integer id){
+        blogsRepository.deleteById(id);
+    }
+
     public List<Blog> getAll(){
         return blogsRepository.findAll();
     }
@@ -41,8 +63,9 @@ public class BlogsService {
                 blogs.addAll(blogsRepository.findByAuthorId(authorId));
             }
         }
-
         return blogs;
     }
+
+
 
 }
